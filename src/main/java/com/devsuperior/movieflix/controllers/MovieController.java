@@ -1,5 +1,7 @@
 package com.devsuperior.movieflix.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.movieflix.dtos.DetailedMovieDTO;
 import com.devsuperior.movieflix.dtos.MovieDTO;
+import com.devsuperior.movieflix.dtos.ReviewDTO;
 import com.devsuperior.movieflix.services.MovieService;
 
 @RestController
@@ -29,5 +32,10 @@ public class MovieController {
 	@GetMapping("/{id}")
 	public ResponseEntity<DetailedMovieDTO> findById(@PathVariable Long id) {
 		return ResponseEntity.ok().body(service.findById(id));
+	}
+	
+	@GetMapping("/{id}/reviews")
+	public ResponseEntity<List<ReviewDTO>> findAllReviewsByMovie(@PathVariable Long id) {
+		return ResponseEntity.ok().body(service.findAllReviewsByMovie(id));
 	}
 }

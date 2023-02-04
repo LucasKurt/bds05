@@ -1,5 +1,6 @@
 package com.devsuperior.movieflix.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.dtos.DetailedMovieDTO;
 import com.devsuperior.movieflix.dtos.MovieDTO;
+import com.devsuperior.movieflix.dtos.ReviewDTO;
 import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.repositories.GenreRepository;
@@ -39,5 +41,13 @@ public class MovieService {
 		Movie movie = obj.orElseThrow(() -> new EntityNotFoundException("Unable to find movie with id " + id));
 		
 		return new DetailedMovieDTO(movie);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<ReviewDTO> findAllReviewsByMovie(Long id) {
+		Optional<Movie> obj = repository.findById(id);
+		Movie movie = obj.orElseThrow(() -> new EntityNotFoundException("Unable to find movie with id " + id));
+		
+		return movie.getReviews().stream().map(x -> new ReviewDTO(x)).toList();
 	}
 }
