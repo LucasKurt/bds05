@@ -2,22 +2,23 @@ package com.devsuperior.movieflix.dtos;
 
 import com.devsuperior.movieflix.entities.Movie;
 
-public class DetailedMovie extends MovieDTO {
+public class DetailedMovieDTO extends MovieDTO {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String synopsis;
 	private GenreDTO genre;
-	
-	public DetailedMovie() {
+
+	public DetailedMovieDTO() {
 	}
 
-	public DetailedMovie(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, GenreDTO genre) {
+	public DetailedMovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis,
+			GenreDTO genre) {
 		super(id, title, subTitle, year, imgUrl);
 		this.synopsis = synopsis;
 		this.genre = genre;
 	}
 
-	public DetailedMovie(Movie movie) {
+	public DetailedMovieDTO(Movie movie) {
 		super(movie);
 		synopsis = movie.getSynopsis();
 		genre = new GenreDTO(movie.getGenre());
